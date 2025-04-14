@@ -92,7 +92,7 @@ Options:
 
 Compute descriptors for perturbed datasets:
 ```bash
-python calc_descriptors.py [OPTIONS]
+python function_descriptors.py [OPTIONS]
 ```
 
 Available options:
