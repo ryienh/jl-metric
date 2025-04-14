@@ -171,26 +171,28 @@ def jl_project_graph_level(node_reps: Dict[int, Tensor], proj_dim: int) -> Tenso
 
 
 def jl_metric(
-    events: TemporalData, node_proj_dim: int, graph_proj_dim: int, seed: int
+    events: TemporalData, 
+    node_proj_dim: int, 
+    graph_proj_dim: int, 
+    seed: int,
+    max_events: int = 100000
 ) -> Tensor:
     """
     Compute JL-Metric representation for a CTDG.
-
     Args:
         events (TemporalData): PyG TemporalData object containing the CTDG
         node_proj_dim (int): Dimension for node projections
         graph_proj_dim (int): Dimension for graph projections
         seed (int): Random seed for reproducibility
-
+        max_events (int, optional): Maximum number of events to consider. Defaults to 100000.
     Returns:
         Tensor: Graph representation
     """
     torch_geometric.seed_everything(seed)
-    MAX_EVENTS = 100000  # hardcoded maximum
 
     # Create random projection matrix
-    embd = torch.randn((MAX_EVENTS, node_proj_dim)) * torch.sqrt(
-        torch.tensor(1.0 / MAX_EVENTS)
+    embd = torch.randn((max_events, node_proj_dim)) * torch.sqrt(
+        torch.tensor(1.0 / max_events)
     )
 
     # Create node representations
